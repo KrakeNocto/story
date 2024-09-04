@@ -36,7 +36,8 @@ echo "Moniker:"
 read -r MONIKER
 echo "Choose port:"
 read -r PORT
-
+echo "Choose Geth port:"
+read -r PORT_G
 # Нода очень похожа на Morph - космосовская нода, но состоит из двух частей - geth (go-ethereum) и story - сама нода.
 # Geth обеспечивает связь с сетью ethereum, логов в ней особо нет. Все основные логи и прогресс по блокам идёт в Story.
 # Скачиваем пакеты geth и story
@@ -52,8 +53,8 @@ curl -Ls https://support.synergynodes.com/addrbook/story_testnet/addrbook.json >
 # Add / Update Peers
 PEERS=1708afbf73e2fbbb5a943aa2d97c976bf8e0d25c@52.9.183.131:26656,371ee318d105b0239b3997c287068ccbbcd46a91@3.248.113.42:26656,502768c5256728123626411bcd85a5633af5a1bc@95.217.193.182:46656,c82d2b5fe79e3159768a77f25eee4f22e3841f56@3.209.222.59:26656,8876a2351818d73c73d97dcf53333e6b7a58c114@3.225.157.207:26656,5e4f9ce2d20f2d3ef7f5c92796b1b954384cbfe1@34.234.176.168:26656,a2fe3dfd6396212e8b4210708e878de99307843c@54.209.160.71:26656,15c7e2b630c04ee11b2c3cfbfb1ede0379df9407@52.74.117.64:26656,f4d96bf0dc67a05a48287ca2c821bc8e1d2b2023@63.35.134.129:26656,2a77804d55ec9e05b411759c70bc29b5e9d0cce0@165.232.184.59:26656,6394a7913ffe2cf0e97cdaccc69760a420887ffe@150.136.92.197:26656,e0ef2e89930e3ff1a45660fa6cb21ceabeb18a1c@129.158.223.103:26656,b43b938fe2360c6364e230ac2aa46f5a8c1c03f7@129.153.150.8:26656,69d588eb98a6cefa51814ab218c8999222d4ca83@188.165.226.46:26766,e0b1bc6a5c9a24e2cf3d01f4957b54c0a819b2b1@148.71.209.79:26656,a15d9e52b1ac29daef23c62a33f3c3d26533d07b@213.239.207.162:26656,1cceccb08bae25a0f91fe85b0ca562fa791f47aa@184.169.154.204:26656,379606c5d249978f0d180a8b9e8350a680bf4e83@129.213.93.193:26656
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.story/story/config/config.toml
-sed -i.bak -e "s|^laddr = \"tcp://127.0.0.1:26657\"|laddr = \"tcp://127.0.0.1:${PORT}657\"|" $HOME/.story/story/config/config.toml
-sed -i.bak -e "s|^laddr = \"tcp://0.0.0.0:26656\"|laddr = \"tcp://0.0.0.0:${PORT}656\"|" $HOME/.story/story/config/config.toml
+sed -i.bak -e "s|^laddr = \"tcp://127.0.0.1:26657\"|laddr = \"tcp://127.0.0.1:2${PORT}57\"|" $HOME/.story/story/config/config.toml
+sed -i.bak -e "s|^laddr = \"tcp://0.0.0.0:26656\"|laddr = \"tcp://0.0.0.0:2${PORT}56\"|" $HOME/.story/story/config/config.toml
 
 #SNAPSHOT
 sudo apt-get install aria2 pv -y
@@ -91,7 +92,7 @@ After=network-online.target
 [Service]
 User=$USER
 WorkingDirectory=~
-ExecStart=/usr/local/bin/geth --iliad --syncmode full
+ExecStart=/usr/local/bin/geth --iliad --syncmode full --port ${PORT_G}303
 Restart=on-failure
 RestartSec=10
 LimitNOFILE=65535
