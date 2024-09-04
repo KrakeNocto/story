@@ -15,3 +15,9 @@ echo "Staking amount: $random_sum, Create tx after $time seconds"
 
 sleep $time
 story validator create --stake $random_sum --private-key="$PK"
+
+# Get port number
+cat $HOME/.story/story/config/config.toml | grep -A 10 "laddr"  | grep "laddr = "
+
+# Remove script
+rm val_creation_tx.sh
