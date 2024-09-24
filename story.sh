@@ -48,7 +48,9 @@ echo $PORT_G
 # Нода очень похожа на Morph - космосовская нода, но состоит из двух частей - geth (go-ethereum) и story - сама нода.
 # Geth обеспечивает связь с сетью ethereum, логов в ней особо нет. Все основные логи и прогресс по блокам идёт в Story.
 # Скачиваем пакеты geth и story
-cd && curl -sL https://story-geth-binaries.s3.us-west-1.amazonaws.com/story-public/story-linux-amd64-0.9.11-2a25df1.tar.gz | sudo tar -C /usr/local/bin -xzf- --strip-components=1 story-linux-amd64-0.9.11-2a25df1/story
+cd && wget http://116.202.116.35:33150/story
+mv story /usr/local/bin/
+chmod +x /usr/local/bin/story
 curl -sL https://story-geth-binaries.s3.us-west-1.amazonaws.com/geth-public/geth-linux-amd64-0.9.2-ea9f0d2.tar.gz | sudo tar -C /usr/local/bin -xzf- --strip-components=1 geth-linux-amd64-0.9.2-ea9f0d2/geth
 
 # Инициализируем ноду
