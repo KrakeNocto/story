@@ -34,10 +34,17 @@ go version
 # Создаем переменную с моникером ноды
 echo "Moniker:"
 read -r MONIKER
-echo "Choose port:"
-read -r PORT
-echo "Choose Geth port:"
-read -r PORT_G
+
+min_am=10
+max_am=64
+PORT=$(shuf -i $min_am-$max_am -n 1)
+echo $PORT
+
+min=10
+max=64
+PORT_G=$(shuf -i $min-$max -n 1)
+echo $PORT_G
+
 # Нода очень похожа на Morph - космосовская нода, но состоит из двух частей - geth (go-ethereum) и story - сама нода.
 # Geth обеспечивает связь с сетью ethereum, логов в ней особо нет. Все основные логи и прогресс по блокам идёт в Story.
 # Скачиваем пакеты geth и story
