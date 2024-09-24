@@ -97,7 +97,7 @@ Description=Story Execution Client service
 After=network-online.target
 
 [Service]
-User=$USER
+User=root
 WorkingDirectory=~
 ExecStart=/usr/local/bin/geth --iliad --syncmode full --port ${PORT_G}303
 Restart=on-failure
@@ -114,7 +114,7 @@ Description=Story Consensus Client service
 After=network-online.target
 
 [Service]
-User=$USER
+User=root
 WorkingDirectory=~
 ExecStart=/usr/local/bin/story run
 Restart=on-failure
