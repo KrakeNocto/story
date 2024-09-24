@@ -66,30 +66,10 @@ sed -i.bak -e "s|^laddr = \"tcp://127.0.0.1:26657\"|laddr = \"tcp://127.0.0.1:2$
 sed -i.bak -e "s|^laddr = \"tcp://0.0.0.0:26656\"|laddr = \"tcp://0.0.0.0:2${PORT}56\"|" $HOME/.story/story/config/config.toml
 
 #SNAPSHOT
-sudo apt-get install aria2 pv -y
 cp $HOME/.story/story/data/priv_validator_state.json $HOME/.story/story/priv_validator_state.json.backup
 rm -rf $HOME/.story/story/data
 rm -rf $HOME/.story/geth/iliad/geth/chaindata
-cd $HOME
-rm -f Geth_snapshot.lz4
-if curl -s --head https://vps6.josephtran.xyz/Story/Geth_snapshot.lz4 | head -n 1 | grep "200" > /dev/null; then
-    echo "Snapshot found, downloading..."
-    aria2c -x 16 -s 16 https://vps6.josephtran.xyz/Story/Geth_snapshot.lz4 -o Geth_snapshot.lz4
-else
-    echo "No snapshot found."
-fi
-cd $HOME
-rm -f Story_snapshot.lz4
-if curl -s --head https://vps6.josephtran.xyz/Story/Story_snapshot.lz4 | head -n 1 | grep "200" > /dev/null; then
-    echo "Snapshot found, downloading..."
-    aria2c -x 16 -s 16 https://vps6.josephtran.xyz/Story/Story_snapshot.lz4 -o Story_snapshot.lz4
-else
-    echo "No snapshot found."
-fi
-sudo mkdir -p /root/.story/story/data
-lz4 -d Story_snapshot.lz4 | pv | sudo tar xv -C /root/.story/story/
-sudo mkdir -p /root/.story/geth/iliad/geth/chaindata
-lz4 -d Geth_snapshot.lz4 | pv | sudo tar xv -C /root/.story/geth/iliad/geth/
+curl https://server-5.itrocket.net/testnet/story/story_2024-09-24_840970_snap.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.story
 mv $HOME/.story/story/priv_validator_state.json.backup $HOME/.story/story/data/priv_validator_state.json
 
 # Запуск сервиса geth
