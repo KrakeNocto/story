@@ -68,7 +68,13 @@ sed -i.bak -e "s|^laddr = \"tcp://0.0.0.0:26656\"|laddr = \"tcp://0.0.0.0:2${POR
 cp $HOME/.story/story/data/priv_validator_state.json $HOME/.story/story/priv_validator_state.json.backup
 rm -rf $HOME/.story/story/data
 rm -rf $HOME/.story/geth/iliad/geth/chaindata
-curl https://server-5.itrocket.net/testnet/story/story_2024-09-26_891047_snap.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.story
+rm $HOME/.story/story/config/addrbook.json
+wget -O addrbook.json https://support.synergynodes.com/addrbook/story_testnet/addrbook.json --inet4-only
+mv addrbook.json $HOME/.story/story/config
+wget -O story_testnet_geth_872651.tar.lz4 https://support.synergynodes.com/snapshots/story_testnet_geth/story_testnet_geth_872651.tar.lz4
+lz4 -c -d story_testnet_geth_872651.tar.lz4 | tar -x -C $HOME/.story/geth/iliad/geth
+wget -O story_testnet_872651.tar.lz4 https://support.synergynodes.com/snapshots/story_testnet_story/story_testnet_872651.tar.lz4
+lz4 -c -d story_testnet_872651.tar.lz4 | tar -x -C $HOME/.story/story
 mv $HOME/.story/story/priv_validator_state.json.backup $HOME/.story/story/data/priv_validator_state.json
 
 # Запуск сервиса geth
