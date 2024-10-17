@@ -24,6 +24,7 @@ rm -rf $HOME/.story/story/data
 rm -rf $HOME/.story/geth/iliad/geth/chaindata
 wget -O story_testnet_1517189.tar.lz4 https://support.synergynodes.com/snapshots/story_testnet_story/story_testnet_1517189.tar.lz4
 lz4 -c -d story_testnet_1517189.tar.lz4 | tar -x -C $HOME/.story/story
+rm story_testnet_1517189.tar.lz4
 mv $HOME/.story/story/priv_validator_state.json.backup $HOME/.story/story/data/priv_validator_state.json
 
 rm story_upd*
