@@ -2,7 +2,7 @@
 
 rm story_upd*
 
-systemctl stop story-testnet
+systemctl stop story-testnet story-testnet-geth
 
 wget https://story-geth-binaries.s3.us-west-1.amazonaws.com/story-public/story-linux-amd64-0.11.0-aac4bfe.tar.gz
 wget https://github.com/piplabs/story-geth/releases/download/v0.9.4/geth-linux-amd64
