@@ -19,7 +19,15 @@ rm -rf story-linux-amd64-0.11.0-aac4bfe
 
 wget -O $HOME/.story/story/config/addrbook.json https://server-3.itrocket.net/testnet/story/addrbook.json
 
+cp $HOME/.story/story/data/priv_validator_state.json $HOME/.story/story/priv_validator_state.json.backup
+rm -rf $HOME/.story/story/data
+rm -rf $HOME/.story/geth/iliad/geth/chaindata
+curl -L https://snapshots.kjnodes.com/story-testnet/snapshot_latest_geth.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.story/geth
+curl -L https://snapshots.kjnodes.com/story-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.story/story
+mv $HOME/.story/story/priv_validator_state.json.backup $HOME/.story/story/data/priv_validator_state.json
+
 rm story_upd*
 
-systemctl restart story-testnet-geth story-testnet
-journalctl -fu story-testnet
+sudo systemctl enable story-testnet.service story-testnet-geth.service
+sudo systemctl restart story-testnet.service story-testnet-geth.service
+journalctl -fu story-testnet.service
