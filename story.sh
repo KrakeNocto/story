@@ -48,9 +48,15 @@ echo $PORT_G
 # Нода очень похожа на Morph - космосовская нода, но состоит из двух частей - geth (go-ethereum) и story - сама нода.
 # Geth обеспечивает связь с сетью ethereum, логов в ней особо нет. Все основные логи и прогресс по блокам идёт в Story.
 # Скачиваем пакеты geth и story
-cd && curl -sL https://story-geth-binaries.s3.us-west-1.amazonaws.com/story-public/story-linux-amd64-0.10.0-9603826.tar.gz | sudo tar -C /usr/local/bin -xzf- --strip-components=1 story-linux-amd64-0.10.0-9603826/story
+cd && wget https://story-geth-binaries.s3.us-west-1.amazonaws.com/story-public/story-linux-amd64-0.11.0-aac4bfe.tar.gz
+wget https://github.com/piplabs/story-geth/releases/download/v0.9.4/geth-linux-amd64
+
+tar -xzf story-linux-amd64-0.11.0-aac4bfe.tar.gz
+mv story-linux-amd64-0.11.0-aac4bfe/story /usr/local/bin/
+mv geth-linux-amd64 version /usr/local/bin/geth
+
 chmod +x /usr/local/bin/story
-curl -sL https://story-geth-binaries.s3.us-west-1.amazonaws.com/geth-public/geth-linux-amd64-0.9.3-b224fdf.tar.gz | sudo tar -C /usr/local/bin -xzf- --strip-components=1 geth-linux-amd64-0.9.3-b224fdf/geth
+chmod +x /usr/local/bin/geth
 
 # Инициализируем ноду
 story init --moniker $MONIKER --network iliad --force=true
@@ -68,13 +74,9 @@ sed -i.bak -e "s|^laddr = \"tcp://0.0.0.0:26656\"|laddr = \"tcp://0.0.0.0:2${POR
 cp $HOME/.story/story/data/priv_validator_state.json $HOME/.story/story/priv_validator_state.json.backup
 rm -rf $HOME/.story/story/data
 rm -rf $HOME/.story/geth/iliad/geth/chaindata
-rm $HOME/.story/story/config/addrbook.json
-wget -O addrbook.json https://support.synergynodes.com/addrbook/story_testnet/addrbook.json --inet4-only
-mv addrbook.json $HOME/.story/story/config
-wget -O story_testnet_geth_872651.tar.lz4 https://support.synergynodes.com/snapshots/story_testnet_geth/story_testnet_geth_872651.tar.lz4
-lz4 -c -d story_testnet_geth_872651.tar.lz4 | tar -x -C $HOME/.story/geth/iliad/geth
-wget -O story_testnet_872651.tar.lz4 https://support.synergynodes.com/snapshots/story_testnet_story/story_testnet_872651.tar.lz4
-lz4 -c -d story_testnet_872651.tar.lz4 | tar -x -C $HOME/.story/story
+wget -O story_testnet_1517189.tar.lz4 https://support.synergynodes.com/snapshots/story_testnet_story/story_testnet_1532088.tar.lz4
+lz4 -c -d story_testnet_1517189.tar.lz4 | tar -x -C $HOME/.story/story
+rm story_testnet_1517189.tar.lz4
 mv $HOME/.story/story/priv_validator_state.json.backup $HOME/.story/story/data/priv_validator_state.json
 
 # Запуск сервиса geth
