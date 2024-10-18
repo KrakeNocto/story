@@ -74,9 +74,11 @@ sed -i.bak -e "s|^laddr = \"tcp://0.0.0.0:26656\"|laddr = \"tcp://0.0.0.0:2${POR
 cp $HOME/.story/story/data/priv_validator_state.json $HOME/.story/story/priv_validator_state.json.backup
 rm -rf $HOME/.story/story/data
 rm -rf $HOME/.story/geth/iliad/geth/chaindata
-wget -O story_testnet_1517189.tar.lz4 https://support.synergynodes.com/snapshots/story_testnet_story/story_testnet_1532088.tar.lz4
+wget -O story_testnet_1517189.tar.lz4 https://support.synergynodes.com/snapshots/story_testnet_story/story_testnet_1539486.tar.lz4
+wget -O story_testnet_geth_1539486.tar.lz4 https://support.synergynodes.com/snapshots/story_testnet_geth/story_testnet_geth_1539486.tar.lz4
 lz4 -c -d story_testnet_1517189.tar.lz4 | tar -x -C $HOME/.story/story
-rm story_testnet_1517189.tar.lz4
+lz4 -c -d story_testnet_geth_1539486.tar.lz4 | tar -x -C $HOME/.story/geth/iliad/geth
+rm story_testnet_1539486.tar.lz4
 mv $HOME/.story/story/priv_validator_state.json.backup $HOME/.story/story/data/priv_validator_state.json
 
 # Запуск сервиса geth
