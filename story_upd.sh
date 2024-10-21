@@ -9,7 +9,7 @@ wget https://github.com/piplabs/story-geth/releases/download/v0.9.4/geth-linux-a
 
 tar -xzf story-linux-amd64-0.11.0-aac4bfe.tar.gz
 mv story-linux-amd64-0.11.0-aac4bfe/story /usr/local/bin/
-mv geth-linux-amd64 version /usr/local/bin/geth
+mv geth-linux-amd64 /usr/local/bin/geth
 
 chmod +x /usr/local/bin/story
 chmod +x /usr/local/bin/geth
