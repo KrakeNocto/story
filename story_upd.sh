@@ -4,7 +4,7 @@ rm story_upd*
 
 systemctl stop story-testnet story-testnet-geth
 
-wget https://github.com/piplabs/story/releases/download/v0.12.0/story-linux-amd64
+wget https://github.com/piplabs/story/releases/download/v0.12.1/story-linux-amd64
 wget https://github.com/piplabs/story-geth/releases/download/v0.10.0/geth-linux-amd64
 
 mv story-linux-amd64 /usr/local/bin/story
@@ -12,6 +12,13 @@ mv geth-linux-amd64 /usr/local/bin/geth
 
 chmod +x /usr/local/bin/story
 chmod +x /usr/local/bin/geth
+
+cp $HOME/.story/story/data/priv_validator_state.json $HOME/.story/story/priv_validator_state.json.backup
+rm -rf $HOME/.story/story/data
+rm -rf $HOME/.story/geth/odyssey/geth/chaindata
+curl -L https://snapshots.kjnodes.com/story-testnet/snapshot_latest_geth.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.story/geth
+curl -L https://snapshots.kjnodes.com/story-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.story/story
+mv $HOME/.story/story/priv_validator_state.json.backup $HOME/.story/story/data/priv_validator_state.json
 
 rm story_upd*
 
