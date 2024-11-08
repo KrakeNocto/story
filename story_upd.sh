@@ -4,6 +4,9 @@ rm story_upd*
 
 systemctl stop story-testnet story-testnet-geth
 
+rm story-linux*
+rm geth-linux*
+
 wget https://github.com/piplabs/story/releases/download/v0.12.1/story-linux-amd64
 wget https://github.com/piplabs/story-geth/releases/download/v0.10.0/geth-linux-amd64
 
